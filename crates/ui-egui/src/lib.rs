@@ -377,6 +377,7 @@ impl EffectcraftApp {
             theme::ThemeKind::Dark => "dark",
             theme::ThemeKind::Darker => "darker",
             theme::ThemeKind::Light => "light",
+            theme::ThemeKind::Calm => "calm",
         };
         let _ = self.set_pref("appearance.theme", json!(name));
         self.apply_prefs(ctx);

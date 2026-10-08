@@ -1007,7 +1007,12 @@ pub fn pages() -> Vec<Page> {
             id: "appearance",
             title: "Appearance",
             items: vec![
-                s("appearance.theme", "Theme", Kind::Choice(&[("Dark", "dark"), ("Darker", "darker"), ("Light", "light")]), true),
+                s(
+                    "appearance.theme",
+                    "Theme",
+                    Kind::Choice(&[("Dark", "dark"), ("Darker", "darker"), ("Light", "light"), ("Calm (Low Stimulation)", "calm")]),
+                    true,
+                ),
                 s("appearance.brightness", "Brightness", Kind::Slider(-1.0, 1.0), true),
                 Section("Labels and Colors"),
                 s("appearance.useLabelColorForHandles", "Use Label Color for Layer Handles and Paths", B, true),

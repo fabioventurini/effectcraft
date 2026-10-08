@@ -15,6 +15,9 @@ pub enum ThemeKind {
     Dark,
     Darker,
     Light,
+    /// Low-stimulation theme: warm neutrals, one accent, no competing hues. Built for sustained
+    /// use by neurodivergent people - see `docs/calm-theme.md`.
+    Calm,
 }
 
 impl ThemeKind {
@@ -23,6 +26,7 @@ impl ThemeKind {
             "dark" | "default" => Some(ThemeKind::Dark),
             "darker" | "darkest" => Some(ThemeKind::Darker),
             "light" => Some(ThemeKind::Light),
+            "calm" | "lowstim" | "quiet" => Some(ThemeKind::Calm),
             _ => None,
         }
     }
@@ -150,6 +154,54 @@ impl Tokens {
         };
         match kind {
             ThemeKind::Dark => dark,
+            // Warm-neutral, single-accent, low-stimulation. Surfaces and text are the INT Digital
+            // design system's dark tokens; the greys carry a faint warm bias so nothing reads as
+            // glare. Four near-identical blues (focus, accent, CTI, timecode, hot text,
+            // keyframe_selected) collapse to one. Gradients are off: a flat fill is one surface,
+            // a gradient is two. Danger and warning keep a hue because they are the cues that
+            // must never be missed, and both are paired with an icon or label elsewhere.
+            ThemeKind::Calm => Tokens {
+                app_bg: Color32::from_rgb(0x12, 0x12, 0x11),
+                header_bg: Color32::from_rgb(0x1a, 0x1a, 0x19),
+                panel_bg: Color32::from_rgb(0x24, 0x24, 0x22),
+                tab_text: Color32::from_rgb(0xb3, 0xb1, 0xa6),
+                tab_text_active: Color32::from_rgb(0xf2, 0xf1, 0xea),
+                focus: Color32::from_rgb(0x85, 0xb7, 0xeb),
+                accent: Color32::from_rgb(0x85, 0xb7, 0xeb),
+                accent_hover: Color32::from_rgb(0x9f, 0xc8, 0xf0),
+                text: Color32::from_rgb(0xf2, 0xf1, 0xea),
+                text_dim: Color32::from_rgb(0xb3, 0xb1, 0xa6),
+                text_faint: Color32::from_rgb(0x9a, 0x98, 0x8f),
+                icon: Color32::from_rgb(0xc9, 0xc7, 0xbc),
+                icon_active: Color32::from_rgb(0xf2, 0xf1, 0xea),
+                hover: Color32::from_rgb(0x32, 0x32, 0x2f),
+                pressed: Color32::from_rgb(0x3a, 0x3a, 0x36),
+                field_bg: Color32::from_rgb(0x2c, 0x2c, 0x2a),
+                field_border: Color32::from_rgb(0x3a, 0x3a, 0x36),
+                separator: Color32::from_rgb(0x3a, 0x3a, 0x36),
+                row: Color32::from_rgb(0x24, 0x24, 0x22),
+                row_alt: Color32::from_rgb(0x2a, 0x2a, 0x28),
+                row_selected: Color32::from_rgb(0x3a, 0x3a, 0x36),
+                hot_text: Color32::from_rgb(0x85, 0xb7, 0xeb),
+                tl_bg: Color32::from_rgb(0x1a, 0x1a, 0x19),
+                tl_ruler_bg: Color32::from_rgb(0x24, 0x24, 0x22),
+                tl_ruler_tick: Color32::from_rgb(0x9a, 0x98, 0x8f),
+                tl_ruler_text: Color32::from_rgb(0xb3, 0xb1, 0xa6),
+                cti: Color32::from_rgb(0x85, 0xb7, 0xeb),
+                work_area: Color32::from_rgb(0x4a, 0x4a, 0x45),
+                cache_green: Color32::from_rgb(0x6f, 0xa8, 0x8c),
+                cache_blue: Color32::from_rgb(0x6f, 0x92, 0xb8),
+                keyframe: Color32::from_rgb(0xb3, 0xb1, 0xa6),
+                keyframe_selected: Color32::from_rgb(0x85, 0xb7, 0xeb),
+                pasteboard: Color32::from_rgb(0x1a, 0x1a, 0x19),
+                timecode: Color32::from_rgb(0x85, 0xb7, 0xeb),
+                danger: Color32::from_rgb(0xd9, 0x73, 0x5e),
+                warning: Color32::from_rgb(0xe0, 0xa9, 0x4a),
+                gap: 6.0,
+                row_h: 23.0,
+                gradients: false,
+                ..dark
+            },
             ThemeKind::Darker => Tokens {
                 app_bg: Color32::from_rgb(0x08, 0x08, 0x08),
                 header_bg: Color32::from_rgb(0x16, 0x16, 0x16),
